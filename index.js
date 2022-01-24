@@ -59,7 +59,7 @@ client.on('messageCreate', async (message) => {
         case '!status':
             profile = await fetchProfile(author.tag)
 
-            if (profile.data.tzprofiles.length === 0 || !profile.data.tzprofiles[0]?.account) { // No profile found
+            if (profile.data.tzprofiles.length === 0) { // No profile found
                 return message.reply({
                     content: `You're not verified on-chain. Try linking yor tzprofiles account to your discord account. (Checked <@${author.id}>)`,
                 })
