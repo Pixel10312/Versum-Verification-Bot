@@ -89,7 +89,7 @@ client.on('messageCreate', async (message) => {
                 })
             }
 
-            if (profile.data.tzprofiles.length === 0 || !profile.data.tzprofiles[0]?.account) { // No profile found
+            if (profile.data.tzprofiles.length === 0) { // No profile found
                 return message.reply({
                     content: `I Can\'t find your tzprofiles account! Make sure you have one, and that your discord username is the same as your tzprofiles account. If you've recently changed your tzprofiles linked discord, try again in a few minutes. (Checked <@${author.id}>)`,
                 })
