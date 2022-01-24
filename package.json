@@ -1,14 +1,9 @@
 {
-  "name": "versum-verification-bot",
+  "name": "versum-bot",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Discord bot for the Versum Discord server",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "discord.js": "^13.6.0",
     "dotenv": "^14.2.0",
