@@ -38,7 +38,6 @@ async function fetchProfile(discord) {
         }),
     })
     const profileJson = await result.json()
-    console.log(JSON.stringify(profileJson))
 
     return profileJson
 }
@@ -46,7 +45,6 @@ async function fetchProfile(discord) {
 async function fetchStatus(address) {
     const result = await fetch(`https://api.tzkt.io/v1/contracts/${IDENTITY_ADDRESS}/bigmaps/users/keys?key.eq=${address}`)
     const statusJson = await result.json()
-    console.log(JSON.stringify(statusJson))
 
     return statusJson
 }
