@@ -1,7 +1,7 @@
 import ms from 'pretty-ms';
 import fetch from 'node-fetch';
 import { Cron } from '../structures/cron';
-import { BOT_TEST_CHANNEL_ID } from '../discord-ids';
+import { INDEXER_CHANNEL_ID } from '../discord-ids';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const blocksToMs = (blocks: number) => blocks * 30 * 1000;
@@ -22,7 +22,7 @@ export default new Cron({
     ];
   },
   run: async ({ client }) => {
-    const channel = client.channels.cache.get(BOT_TEST_CHANNEL_ID);
+    const channel = client.channels.cache.get(INDEXER_CHANNEL_ID);
 
     const checkIndexerStatus = async (delay: number, callback: (levels: number) => any) => {
       try {

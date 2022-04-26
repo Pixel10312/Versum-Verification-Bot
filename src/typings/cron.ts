@@ -6,7 +6,7 @@ interface RunOptions {
 
 type RunFunction = (options: RunOptions) => any;
 
-type SummaryFunction = () => string[] | undefined;
+type SummaryFunction = () => any;
 
 export type CronType = {
   name: string;

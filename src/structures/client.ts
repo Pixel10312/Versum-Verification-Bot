@@ -1,6 +1,13 @@
-import { ApplicationCommandDataResolvable, Client as BaseClient, ClientEvents, Collection } from 'discord.js';
+import {
+  ApplicationCommandDataResolvable,
+  Client as BaseClient,
+  ClientEvents,
+  Collection,
+  MessageEmbed,
+} from 'discord.js';
 import glob from 'glob';
 import { promisify } from 'util';
+import { AUDIT_LOGS_CHANNEL_ID } from '../discord-ids';
 import { CommandType } from '../typings/command';
 import { CronType } from '../typings/cron';
 import { Event } from './event';
@@ -81,6 +88,34 @@ export class Client extends BaseClient {
       cronjob.forEach((c) => {
         c.run({ client: this });
       });
+
+      // greeting
+      const channel = this.channels.cache.get(AUDIT_LOGS_CHANNEL_ID);
+      const greeting = async () => {
+        if (channel?.isText()) {
+          const version = await this.botVersion();
+
+          const embbed = new MessageEmbed()
+            .setTitle('Hello World')
+            .setDescription(
+              `Hi :wave:, I just got upgraded! I'm currently running version ${version} :tada:\n\nCheck [what's new](https://github.com/versumstudios/discord-bot/blob/main/CHANGELOG.md) on Github`
+            );
+
+          for (let i = 0; i < cronjob.length; i++) {
+            const job: [string, string] = cronjob[i].summary();
+            embbed.addField(...job);
+          }
+          embbed.setTimestamp();
+
+          if (process.env.NODE_ENV === 'production') {
+            channel.send({ embeds: [embbed] });
+          }
+
+          console.log(`Versum Bot [${version}] NODE_ENV=${process.env.NODE_ENV}`);
+        }
+      };
+
+      greeting();
     });
   }
 }
