@@ -1,5 +1,4 @@
 require('dotenv').config();
-require('module-alias/register');
 
 import { ExtendedClient } from './structures/client';
 
