@@ -92,9 +92,8 @@ export class Client extends BaseClient {
       // greeting
       const channel = this.channels.cache.get(AUDIT_LOGS_CHANNEL_ID);
       const greeting = async () => {
+        const version = await this.botVersion();
         if (channel?.isText()) {
-          const version = await this.botVersion();
-
           const embbed = new MessageEmbed()
             .setTitle('Hello World')
             .setDescription(
@@ -110,9 +109,8 @@ export class Client extends BaseClient {
           if (process.env.NODE_ENV === 'production') {
             channel.send({ embeds: [embbed] });
           }
-
-          console.log(`Versum Bot [${version}] NODE_ENV=${process.env.NODE_ENV}`);
         }
+        console.log(`Versum Bot [${version}] NODE_ENV=${process.env.NODE_ENV}`);
       };
 
       greeting();
