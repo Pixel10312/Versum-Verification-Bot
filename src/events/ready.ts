@@ -1,5 +1,5 @@
-import { Event } from "../structures/event"
+import { Event } from '../structures/event';
 
-export default new Event("ready", () => {
-  console.log("Versum Bot")
-})
+export default new Event('ready', () => {
+  console.log('Versum Bot');
+});

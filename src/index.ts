@@ -1,8 +1,8 @@
-require("dotenv").config()
-require("module-alias/register")
+require('dotenv').config();
+require('module-alias/register');
 
-import { ExtendedClient } from "./structures/client"
+import { ExtendedClient } from './structures/client';
 
-export const client = new ExtendedClient()
+export const client = new ExtendedClient();
 
-client.start()
+client.start();
