@@ -26,3 +26,5 @@ $ git add .
 $ git commit -am "make it better"
 $ git push heroku main
 ```
+
+On heroky app, run command and `heroku run heroku-serve`.
