@@ -36,6 +36,11 @@ export class Client extends BaseClient {
   }
 
   async registerCommands({ commands, guildId }: RegisterCommandsOptions) {
+    // reset commands
+    this.application.commands.set([]); // This takes ~1 hour to update
+    this.guilds.cache.get(guildId)?.commands.set([]); // updates immediately
+
+    // add commands
     if (guildId) {
       this.guilds.cache.get(guildId)?.commands.set(commands);
     } else {
