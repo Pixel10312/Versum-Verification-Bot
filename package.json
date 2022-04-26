@@ -16,7 +16,9 @@
     "start:prod": "node dist/index.js",
     "build": "tsc",
     "watch": "tsc -w",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "heroku-postbuild": "npm run build",
+    "heroku-serve": "npm run serve"
   },
   "dependencies": {
     "discord.js": "^13.6.0",
