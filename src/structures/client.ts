@@ -2,6 +2,7 @@ import { ApplicationCommandDataResolvable, Client as BaseClient, ClientEvents, C
 import glob from 'glob';
 import { promisify } from 'util';
 import { CommandType } from '../typings/command';
+import { CronType } from '../typings/cron';
 import { Event } from './event';
 
 const globPromise = promisify(glob);
@@ -19,9 +20,11 @@ export class Client extends BaseClient {
   }
 
   start() {
+    console.log('\nVersum Bot [starting]\n');
     this.registerModules();
     this.login(process.env.TOKEN);
   }
+
   async importFile(filePath: string) {
     return (await import(filePath))?.default;
   }
@@ -34,8 +37,15 @@ export class Client extends BaseClient {
     }
   }
 
+  async botVersion() {
+    const { version } = await this.importFile('../../package.json');
+    return version;
+  }
+
   async registerModules() {
     const slashCommands: ApplicationCommandDataResolvable[] = [];
+
+    // load all commands
     const commandFiles = await globPromise(`${__dirname}/../commands/*/*{.ts,.js}`);
     commandFiles.forEach(async (filePath) => {
       const command: CommandType = await this.importFile(filePath);
@@ -43,19 +53,41 @@ export class Client extends BaseClient {
 
       this.commands.set(command.name, command);
       slashCommands.push(command);
+
+      console.log(`load ${command.name} [command]`);
     });
 
-    this.on('ready', () => {
-      this.registerCommands({
-        commands: slashCommands,
-        guildId: process.env.GUILD,
-      });
-    });
-
+    // load all events
     const eventFiles = await globPromise(`${__dirname}/../events/*{.ts,.js}`);
     eventFiles.forEach(async (filePath) => {
       const event: Event<keyof ClientEvents> = await this.importFile(filePath);
       this.on(event.event, event.run);
+
+      console.log(`load ${event.event} [event]`);
+    });
+
+    // load all cron
+    const cronjob: CronType[] = [];
+    const cronFiles = await globPromise(`${__dirname}/../cron/*{.ts,.js}`);
+    cronFiles.forEach(async (filePath) => {
+      const cron: CronType = await this.importFile(filePath);
+      if (!cron.name) return;
+      cronjob.push(cron);
+
+      console.log(`load ${cron.name} [cron]`);
+    });
+
+    this.on('ready', () => {
+      // register commands
+      this.registerCommands({
+        commands: slashCommands,
+        guildId: process.env.GUILD,
+      });
+
+      // run cron tasks
+      cronjob.forEach((c) => {
+        c.run({ client: this });
+      });
     });
   }
 }

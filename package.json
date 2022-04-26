@@ -1,7 +1,7 @@
 {
   "name": "versum-bot",
   "description": "A simple discord bot for everything Versum",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "versumstudios",
   "license": "ISC",
   "keywords": [
@@ -21,11 +21,14 @@
   "dependencies": {
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
-    "glob": "^8.0.1"
+    "glob": "^8.0.1",
+    "node-fetch": "2.6.7",
+    "pretty-ms": "^7.0.1"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
     "@types/node": "^17.0.26",
+    "@types/node-fetch": "^2.6.1",
     "ts-node": "^10.7.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.6.3"
