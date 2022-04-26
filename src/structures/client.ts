@@ -1,4 +1,4 @@
-import { ApplicationCommandDataResolvable, Client, ClientEvents, Collection } from 'discord.js';
+import { ApplicationCommandDataResolvable, Client as BaseClient, ClientEvents, Collection } from 'discord.js';
 import glob from 'glob';
 import { promisify } from 'util';
 import { CommandType } from '../typings/command';
@@ -11,7 +11,7 @@ interface RegisterCommandsOptions {
   commands: ApplicationCommandDataResolvable[];
 }
 
-export class ExtendedClient extends Client {
+export class Client extends BaseClient {
   commands: Collection<string, CommandType> = new Collection();
 
   constructor() {
