@@ -1,4 +1,3 @@
-import { Channel, MessageEmbed, TextChannel } from 'discord.js';
 import ms from 'pretty-ms';
 import fetch from 'node-fetch';
 import { Cron } from '../structures/cron';
@@ -37,7 +36,7 @@ export default new Cron({
           callback(level);
         }
       } catch (error) {
-        console.log('error', error);
+        console.log(NAME, 'error', error);
       }
 
       await sleep(delay);

@@ -20,7 +20,6 @@ export class Client extends BaseClient {
   }
 
   start() {
-    console.log('\nVersum Bot [starting]\n');
     this.registerModules();
     this.login(process.env.TOKEN);
   }
@@ -53,8 +52,6 @@ export class Client extends BaseClient {
 
       this.commands.set(command.name, command);
       slashCommands.push(command);
-
-      console.log(`load ${command.name} [command]`);
     });
 
     // load all events
@@ -62,8 +59,6 @@ export class Client extends BaseClient {
     eventFiles.forEach(async (filePath) => {
       const event: Event<keyof ClientEvents> = await this.importFile(filePath);
       this.on(event.event, event.run);
-
-      console.log(`load ${event.event} [event]`);
     });
 
     // load all cron
@@ -73,8 +68,6 @@ export class Client extends BaseClient {
       const cron: CronType = await this.importFile(filePath);
       if (!cron.name) return;
       cronjob.push(cron);
-
-      console.log(`load ${cron.name} [cron]`);
     });
 
     this.on('ready', () => {
