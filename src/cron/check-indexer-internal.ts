@@ -4,7 +4,7 @@ import { Cron } from '../structures/cron';
 import { INDEXER_CHANNEL_ID } from '../discord-ids';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-const blocksToMs = (blocks: number) => blocks * 30 * 1000;
+const blocksToMs = (blocks: number) => blocks * 15 * 1000;
 const msToBlocks = (seconds: number) => seconds / 30000;
 
 const CHECK_INTERVAL = 1000 * 60 * 15; // checks every 15 minutes
