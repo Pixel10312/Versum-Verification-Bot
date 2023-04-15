@@ -5,7 +5,7 @@ import { INDEXER_CHANNEL_ID } from '../discord-ids';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const blocksToMs = (blocks: number) => blocks * 15 * 1000;
-const msToBlocks = (seconds: number) => seconds / 30000;
+const msToBlocks = (seconds: number) => seconds / 15000;
 
 const CHECK_INTERVAL = 1000 * 60 * 15; // checks every 15 minutes
 const BLOCKS_BEHIND = msToBlocks(1000 * 60 * 10); // warns if a 10 minute delay is detected
